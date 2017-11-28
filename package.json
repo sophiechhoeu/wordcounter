@@ -1,5 +1,16 @@
 {
   "dependencies": {
     "serve": "^6.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react-app": "^3.1.0",
+    "cross-env": "^5.1.1",
+    "webpack": "^3.8.1"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack -p"
   }
+
 }
