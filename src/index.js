@@ -4,6 +4,73 @@
 // parent component that knows the state of the presentation components
 // returns a create element or jsx
 
+const SUCCESS = 'SUCCESS';
+const FAILURE = 'FAILURE';
+const WAITING = 'WAITING';
+const IDLE = 'IDLE';
+
+// mock server returns a promise pure javascript
+
+function makeFakeRequest () {
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.5){
+        resolve('Success!')
+
+      } else {
+        reject('Failed')
+      }
+    },3000);
+  });
+}
+
+function SaveButton({onClick}) {
+  return (
+    <button className="pv2 ph3" onClick={onClick}>
+      Save
+    </button>
+  )
+}
+
+function AlertBox({status}) {
+  if (status === FAILURE) {
+      return <div className="mv2"> Save failed</div>;
+  } else if (status === SUCCESS){
+      return <div className="mv2"> Save successful</div>;
+  } else if (status == WAITING){
+      return <div className="mv2"> Saving...</div>
+  } else {
+      return null
+  }
+}
+
+class SaveManager extends React.Component {
+  constructor(){
+    super();
+    this.state = {saveStatus: IDLE};
+    this.save= this.save.bind(this);
+  }
+
+  save(event) {
+    event.preventDefault();
+    this.setState(() => {return {saveStatus: WAITING}})
+    this.props.saveFunction(this.props.data).then(
+      success =>this.setState(() => ({saveStatus: SUCCESS})),
+      failure => this.setState(() => ({saveStatus: FAILURE}))
+    );
+  }
+
+
+render() {
+  return (
+    <div className="flex flex-column mv2">
+      <SaveButton onClick={this.save}/>
+      <AlertBox status={this.state.saveStatus}/>
+    </div>
+  )
+}
+}
+
 // presentation components
 function Counter({count}) {
   return(
@@ -21,8 +88,8 @@ function ProgressBar({completion}) {
         ProgressBar
       </label>
       <progress value= {completion} id="progress" className="bn">
-        {percentage}%
       </progress>
+      {percentage}%
     </div>
   )
 }
@@ -89,6 +156,7 @@ class WordCounter extends React.Component {
          <Editor text={text} onTextChange={this.handleTextChange}/>
          <Counter count={wordCount}/>
          <ProgressBar completion={progress}/>
+         <SaveManager saveFunction={makeFakeRequest} data={this.state}/>
       </form>
     )
   }
