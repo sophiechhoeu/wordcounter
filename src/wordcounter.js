@@ -1,4 +1,6 @@
 import React from 'react';
+import Editor from './editor'
+import ProgressBar from './progressbar'
 
 
 const SUCCESS = 'SUCCESS';
@@ -77,37 +79,37 @@ function Counter({count}) {
   )
 }
 
-function ProgressBar({completion}) {
-  const percentage = completion * 100;
-  return(
-    <div className="mv2 flex flex-column">
-      <label htmlFor="progress" className="mv2">
-        ProgressBar
-      </label>
-      <progress value= {completion} id="progress" className="bn">
-      </progress>
-      {percentage}%
-    </div>
-  )
-}
+// function ProgressBar({completion}) {
+//   const percentage = completion * 100;
+//   return(
+//     <div className="mv2 flex flex-column">
+//       <label htmlFor="progress" className="mv2">
+//         ProgressBar
+//       </label>
+//       <progress value= {completion} id="progress" className="bn">
+//       </progress>
+//       {percentage}%
+//     </div>
+//   )
+// }
 
 // native events how you view it in the browser
 
 
 
-function Editor({text,onTextChange}) {
-  function handleChange(event){
-    onTextChange(event.target.value);
-  }
-  return(
-    <div className="flex flex-column mv2">
-      <label htmlFor="editor" className="mv2">
-        Enter your text:
-      </label>
-      <textarea value={text} onChange={handleChange} id="editor"/>
-    </div>
-  )
-}
+// function Editor({text,onTextChange}) {
+//   function handleChange(event){
+//     onTextChange(event.target.value);
+//   }
+//   return(
+//     <div className="flex flex-column mv2">
+//       <label htmlFor="editor" className="mv2">
+//         Enter your text:
+//       </label>
+//       <textarea value={text} onChange={handleChange} id="editor"/>
+//     </div>
+//   )
+// }
 
 
 

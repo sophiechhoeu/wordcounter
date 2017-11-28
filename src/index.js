@@ -5,7 +5,9 @@
 // returns a create element or jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import WordCounter from './WordCounter';
+import WordCounter from './wordcounter';
+import Editor from './editor';
+import ProgressBar from './progressbar';
 
 ReactDOM.render(
   <WordCounter targetWordCount={10}/>,
