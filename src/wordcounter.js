@@ -1,7 +1,7 @@
 import React from 'react';
 import Editor from './editor'
 import ProgressBar from './progressbar'
-
+import Timer from './timer';
 
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
@@ -124,10 +124,12 @@ function countWords(text){
 // react.component calls set state because the future can change it triggers react to render
 // when i update my state it triggers a re-render
 
-class WordCounter extends React.Component {
+// webpack
+// export default class
+export default class WordCounter extends React.Component {
     constructor(){
       super();
-      this.state = {text:''}
+      this.state = {text:'', timeNow: new Date()}
       // this.handleTextChange = this.handleTextChange.bind(this);
     }
 
@@ -139,6 +141,17 @@ class WordCounter extends React.Component {
 
   handleTextChange = (currentText) => {
       this.setState({ text: currentText })
+      this.timer = null;
+  }
+
+  componentDidMount () {
+    this.timer = setInterval(() => {
+      this.setState(() => ({ timeNow: new Date()}))
+    }, 1000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timer)
   }
 
   // handleTextChange(currentText) {
@@ -150,19 +163,21 @@ class WordCounter extends React.Component {
     const {text} = this.state;
     const wordCount = countWords(text);
     const progress = wordCount/ targetWordCount;
+    // const timeNow = new Date();
     return (
       <form className="measure pa4 sans-serif">
          <Editor text={text} onTextChange={this.handleTextChange}/>
          <Counter count={wordCount}/>
          <ProgressBar completion={progress}/>
          <SaveManager saveFunction={makeFakeRequest} data={this.state}/>
+         <Timer timeNow={this.state.timeNow}/>
       </form>
     )
   }
 }
 
 
-export default WordCounter;
+// export default WordCounter;
 
 // function WordCounter({text, targetWordCount}) {
 //   const wordCount = countWords(text);
