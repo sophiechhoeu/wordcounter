@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A counter displays the count 1`] = `
+<p
+  className="mb2"
+>
+  Word count:
+  34
+</p>
+`;

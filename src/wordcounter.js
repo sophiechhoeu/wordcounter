@@ -1,7 +1,9 @@
 import React from 'react';
-import Editor from './editor'
-import ProgressBar from './progressbar'
-import Timer from './timer';
+import Editor from './Editor'
+import ProgressBar from './ProgressBar'
+import Timer from './Timer';
+import countWords from './countWords';
+import Counter from './Counter';
 
 const SUCCESS = 'SUCCESS';
 const FAILURE = 'FAILURE';
@@ -70,14 +72,7 @@ render() {
 }
 }
 
-// presentation components
-function Counter({count}) {
-  return(
-    <p className="mb2">
-      Word count:{count}
-    </p>
-  )
-}
+
 
 // function ProgressBar({completion}) {
 //   const percentage = completion * 100;
@@ -116,9 +111,7 @@ function Counter({count}) {
 // utility function with a regular expression
 // look for all the non space characters (g means global) and return these into an array
 
-function countWords(text){
-  return text ? text.match(/\w+/g).length : 0
-}
+
 
 // before this exists must call super, before it can call on the component object of react
 // react.component calls set state because the future can change it triggers react to render
@@ -126,7 +119,7 @@ function countWords(text){
 
 // webpack
 // export default class
-export default class WordCounter extends React.Component {
+class WordCounter extends React.Component {
     constructor(){
       super();
       this.state = {text:'', timeNow: new Date()}
@@ -177,7 +170,7 @@ export default class WordCounter extends React.Component {
 }
 
 
-// export default WordCounter;
+export default WordCounter;
 
 // function WordCounter({text, targetWordCount}) {
 //   const wordCount = countWords(text);
